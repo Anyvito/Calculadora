@@ -32,12 +32,12 @@ function valorInput(numero) {
 }
 
 function teset(operador) {
+
     if (sinal === ""){
         sinal = operador
-        display.value = display.value + operador;
+        display.value = display.value + sinal;
         memoria.push(conta)
         conta = ""
-
     } if (sinal === "%") {
         porcentagen = memoria[0] / 100
         resultado.innerHTML = porcentagen;
@@ -52,18 +52,18 @@ igual.addEventListener('click', (evento) => {
     memoria.push(conta);
 
     if(sinal === "-") {
-        teste = memoria[0] - memoria[1];
+        resul = memoria[0] - memoria[1];
     } if(sinal === "/") {
-        teste = memoria[0] / memoria[1];
+        resul = memoria[0] / memoria[1];
     } if(sinal === "*") {
-        teste = memoria[0] * memoria[1];
+        resul = memoria[0] * memoria[1];
     } if(sinal === "+") {
-        teste = parseInt(memoria[0]) + parseInt(memoria[1]);
+        resul = parseFloat(memoria[0]) + parseFloat(memoria[1]);
     } if (sinal === "") {
-        teste = memoria
+        resul = memoria
     }
 
-    resultado.innerHTML = teste;
+    resultado.innerHTML = resul;
     display.value = "";
     conta = "";
     sinal = "";
@@ -80,6 +80,5 @@ function apagar (cl) {
     } if (cl === "C") {
         conta = "";
         display.value = memoria + sinal;
-        console.log (memoria)
     }
 }
