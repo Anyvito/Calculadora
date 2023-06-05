@@ -3,6 +3,7 @@
     --laranja: rgb(252, 135, 2);
     --preto: black;
     --azul-escuro: rgb(0, 0, 73);
+    --borda-botao: darkblue; 
 
     background-color: var(--preto);
 }
@@ -19,17 +20,18 @@ main {
     background-color: var(--preto);
     border: none;
     color: var(--branco);
-    font-size: 250%;
+    font-size: 2.5rem;
     outline: none;
 }
 
 .resultado {
     color: var(--branco);
     margin: 10px 15%;
-    font-size: 300%;
+    font-size: 3rem;
     font-weight: 500;
     display: flex;
     flex-direction: row-reverse;
+    height: 3.5rem;
 }
 
 .botoes {
@@ -42,10 +44,10 @@ main {
 
 .teclado {
     border-radius: 30px 10px;
-    border: solid 4px darkblue;
+    border: solid 4px var(--borda-botao);
     background-color: var(--azul-escuro);
     color: var(--branco);
-    font-size: 150%;
+    font-size: 1.5rem;
 }
 
 .igual {

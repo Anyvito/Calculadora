@@ -32,7 +32,6 @@ function valorInput(numero) {
 }
 
 function teset(operador) {
-
     if (sinal === ""){
         sinal = operador
         display.value = display.value + sinal;
@@ -51,16 +50,20 @@ function teset(operador) {
 igual.addEventListener('click', (evento) => {
     memoria.push(conta);
 
-    if(sinal === "-") {
-        resul = memoria[0] - memoria[1];
-    } if(sinal === "/") {
-        resul = memoria[0] / memoria[1];
-    } if(sinal === "*") {
-        resul = memoria[0] * memoria[1];
-    } if(sinal === "+") {
-        resul = parseFloat(memoria[0]) + parseFloat(memoria[1]);
-    } if (sinal === "") {
-        resul = memoria
+    if (sinal !== "" && memoria[1] !== "") {
+        if(sinal === "-") {
+            resul = memoria[0] - memoria[1];
+        } if(sinal === "/") {
+            resul = memoria[0] / memoria[1];
+        } if(sinal === "*") {
+            resul = memoria[0] * memoria[1];
+        } if(sinal === "+" && memoria[0] !== "") {
+            resul = parseFloat(memoria[0]) + parseFloat(memoria[1]);
+        } if(sinal === "+") {
+            resul = memoria[1];
+        }
+    } else {
+        resul = memoria[0];
     }
 
     resultado.innerHTML = resul;
@@ -68,6 +71,12 @@ igual.addEventListener('click', (evento) => {
     conta = "";
     sinal = "";
     memoria.splice(0);
+});
+
+igual.addEventListener('click', (evento) => {
+    if (resultado.innerHTML === "NaN") {
+        resultado.innerHTML = "Erro";
+    }
 });
 
 function apagar (cl) {
