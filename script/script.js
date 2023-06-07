@@ -4,73 +4,81 @@ const inputApagar = document.querySelectorAll("[data-clear]");
 const igual = document.getElementById("igual");
 let display = document.getElementById('display');
 let resultado = document.getElementById('resultado');
-var sinal = "";
-let conta = "";
+var operador = "";
+let memoTemporaria = "";
 const memoria = [];
 
 inputTeclado.forEach( (elemento) => {
     elemento.addEventListener("click", (evento) => {
-        valorInput(evento.target.textContent);
+        chamadaTeclado(evento.target.textContent);
     })
 })
 
 inputSinal.forEach( (elemento) => {
     elemento.addEventListener("click", (evento) => {
-        teset(evento.target.textContent);
+        chamadaSinal(evento.target.textContent);
     })
 })
 
 inputApagar.forEach( (elemento) => {
     elemento.addEventListener("click", (evento) => {
-        apagar(evento.target.textContent);
+        chamadaApagar(evento.target.textContent);
     })
 })
 
-function valorInput(numero) {
+function chamadaTeclado(numero) {
     display.value = display.value + numero;
-    conta = conta+numero;
+    memoTemporaria = memoTemporaria+numero;
 }
 
-function teset(operador) {
-    if (sinal === ""){
-        sinal = operador
-        display.value = display.value + sinal;
-        memoria.push(conta)
-        conta = ""
-    } if (sinal === "%") {
+function chamadaSinal(operador) {
+    if (memoTemporaria !== "") {
+        call(operador);
+    } else {
+        memoTemporaria = resul;
+        call(operador);
+    }
+}
+
+function reset() {
+    display.value = "";
+    memoTemporaria = "";
+    operador = "";
+    memoria.splice(0);
+}
+
+function call(num) {
+    if (operador === ""){
+        operador = num
+        display.value = display.value + operador;
+        memoria.push(memoTemporaria)
+        memoTemporaria = ""
+    } if (operador === "%") {
         porcentagen = memoria[0] / 100
         resultado.innerHTML = porcentagen;
-        display.value = "";
-        conta = "";
-        sinal = "";
-        memoria.splice(0);
+        reset()
     }
 }
 
 igual.addEventListener('click', (evento) => {
-    memoria.push(conta);
-
-    if (sinal !== "" && memoria[1] !== "") {
-        if(sinal === "-") {
+    memoria.push(memoTemporaria);
+    if (operador !== "" && memoria[1] !== "") {
+        if(operador === "-") {
             resul = memoria[0] - memoria[1];
-        } if(sinal === "/") {
+        } else if(operador === "/") {
             resul = memoria[0] / memoria[1];
-        } if(sinal === "*") {
+        } else if(operador === "*") {
             resul = memoria[0] * memoria[1];
-        } if(sinal === "+" && memoria[0] !== "") {
+        } else if(operador === "+" && memoria[0] !== "") {
             resul = parseFloat(memoria[0]) + parseFloat(memoria[1]);
-        } if(sinal === "+") {
+        } else {
             resul = memoria[1];
         }
     } else {
         resul = memoria[0];
     }
-
     resultado.innerHTML = resul;
-    display.value = "";
-    conta = "";
-    sinal = "";
-    memoria.splice(0);
+    reset()
 });
 
 igual.addEventListener('click', (evento) => {
@@ -79,15 +87,13 @@ igual.addEventListener('click', (evento) => {
     }
 });
 
-function apagar (cl) {
+function chamadaApagar (cl) {
     if (cl === "AC"){
-        resultado.innerHTML = "0";
-        display.value = "";
-        conta = "";
-        sinal = "";
-        memoria.splice(0);
+        reset()
+        resul = "";
+        resultado.innerHTML = "";
     } if (cl === "C") {
-        conta = "";
-        display.value = memoria + sinal;
+        memoTemporaria = "";
+        display.value = memoria + operador;
     }
 }
